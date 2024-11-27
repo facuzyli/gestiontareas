@@ -17,7 +17,10 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Página de inicio (login) */}
         <Route path="/" element={<Login />} />
+        
+        {/* Dashboard de Gerente */}
         <Route
           path="/manager"
           element={
@@ -26,6 +29,8 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Dashboard de Sistemas */}
         <Route
           path="/system"
           element={
@@ -34,6 +39,8 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Tareas Pendientes */}
         <Route
           path="/pending-tasks"
           element={
@@ -42,6 +49,8 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Tareas Cerradas */}
         <Route
           path="/closed-tasks"
           element={
@@ -50,6 +59,8 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Crear nueva tarea */}
         <Route
           path="/create-task"
           element={
@@ -58,6 +69,8 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Tareas del sistema */}
         <Route
           path="/system-tasks"
           element={
@@ -66,6 +79,8 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Gestión de preguntas */}
         <Route
           path="/questions"
           element={
@@ -74,6 +89,8 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Crear nueva pregunta */}
         <Route
           path="/create-question"
           element={
@@ -82,10 +99,12 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* Detalle de Tarea */}
         <Route
           path="/task-details/:id"
           element={
-            <PrivateRoute allowedRoles={['system']}>
+            <PrivateRoute allowedRoles={['manager', 'system']}>
               <TaskDetails />
             </PrivateRoute>
           }

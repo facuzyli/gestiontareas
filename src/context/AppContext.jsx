@@ -1,43 +1,42 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [tasks, setTasks] = useState([
-    { id: 1, name: 'Apertura 1', status: 'pendiente', progress: 50 },
-    { id: 2, name: 'Reapertura 2', status: 'pendiente', progress: 20 },
-    { id: 3, name: 'Apertura 3', status: 'cerrada', progress: 100 },
-  ]);
-
-  const [questions, setQuestions] = useState([
-    { id: 1, text: '¿Cuál es el problema principal?' },
-    { id: 2, text: '¿Qué acciones correctivas se realizaron?' },
+    { id: 1, name: 'Apertura 1', local: 'macowens', status: 'pendiente', progress: 50 },
+    { id: 2, name: 'Reapertura 2', local: 'devre', status: 'pendiente', progress: 20 },
+    { id: 3, name: 'Apertura 3', local: 'macowens', status: 'cerrada', progress: 100 },
+    { id: 4, name: 'Reapertura 4', local: 'devre', status: 'cerrada', progress: 100 },
   ]);
 
   const [user, setUser] = useState(null);
 
   const login = (username, password) => {
     if (username === 'gerente' && password === '1234') {
-      setUser({ username, role: 'manager' });
-      return true;
-    } else if (username === 'sistemas' && password === '1234') {
-      setUser({ username, role: 'system' });
+      const user = { username, role: 'manager' };
+      setUser(user);
+      console.log("Usuario logueado:", user);
       return true;
     }
+    console.log("Credenciales incorrectas");
     return false;
   };
 
   const logout = () => {
     setUser(null);
+    console.log("Sesión cerrada");
   };
+
+  useEffect(() => {
+    console.log("Tareas en contexto:", tasks);
+  }, [tasks]);
 
   return (
     <AppContext.Provider
       value={{
         tasks,
         setTasks,
-        questions,
-        setQuestions,
         user,
         login,
         logout,
