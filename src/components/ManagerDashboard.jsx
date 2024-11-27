@@ -6,6 +6,12 @@ export default function ManagerDashboard() {
     const [showMenu, setShowMenu] = useState(false); // Estado para el menú desplegable
     const navigate = useNavigate();
 
+
+    const handleLogout = () => {
+        // Aquí podrías limpiar cualquier estado o token de sesión
+        alert("Sesión cerrada");
+        navigate("/"); // Redirige al login
+    };
     const tasks = [
         { type: "Apertura", id: "1", local: "macowens", progress: 70 },
         { type: "Reapertura", id: "2", local: "devre", progress: 20 },
@@ -33,8 +39,8 @@ export default function ManagerDashboard() {
                             Pendientes
                         </button>
                         <button
-                            className={`nav-button ${activeTab === "Cerrados" ? "active" : ""}`}
-                            onClick={() => setActiveTab("Cerrados")}
+                            className="nav-button"
+                            onClick={() => navigate("/closed-tasks")}
                         >
                             Cerrados
                         </button>
@@ -48,7 +54,7 @@ export default function ManagerDashboard() {
                         </button>
                         {showMenu && (
                             <div className="menu-dropdown">
-                                <button onClick={() => alert("Cerrar sesión")}>Cerrar sesión</button>
+                                <button onClick={handleLogout}>Cerrar sesión</button>
                             </div>
                         )}
                     </div>
@@ -58,7 +64,7 @@ export default function ManagerDashboard() {
             <div className="create-new-container">
                 <button
                     className="create-button"
-                    onClick={() => navigate("/crear-apertura")}
+                    onClick={() => navigate("/create-task")}
                 >
                     + Crear nuevo
                 </button>
@@ -68,7 +74,7 @@ export default function ManagerDashboard() {
             <div className="scrollable-content">
                 <div className="task-container">
                     {filteredTasks.map((task) => (
-                        <div key={task.id} className="task-card">
+                        <div key={task.id} className="task-card" onClick={() => navigate(`/task-details/${task.id}`)}>
                             <h3>{task.type}</h3>
                             <p>ID: {task.id}</p>
                             <p>Local: {task.local}</p>

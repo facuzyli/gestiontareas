@@ -14,20 +14,21 @@ const CreateTaskForm = () => {
       const newTask = {
         id: tasks.length + 1,
         name,
+        description,
         status: 'pendiente',
         progress: 0,
       };
       setTasks([...tasks, newTask]);
-      alert('Apertura/Reapertura creada exitosamente');
+      alert('Tarea creada exitosamente');
       navigate('/pending-tasks');
     } else {
-      alert('Por favor, completa todos los campos');
+      alert('Por favor, completa todos los campos.');
     }
   };
 
   return (
     <div>
-      <h2>Crear Nueva Apertura/Reapertura</h2>
+      <h2>Crear Nueva Tarea</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nombre:</label>
@@ -45,7 +46,9 @@ const CreateTaskForm = () => {
           />
         </div>
         <button type="submit">Guardar</button>
-        <button onClick={() => navigate('/pending-tasks')}>Cerrar sin guardar</button>
+        <button type="button" onClick={() => navigate('/pending-tasks')}>
+          Cerrar sin guardar
+        </button>
       </form>
     </div>
   );
